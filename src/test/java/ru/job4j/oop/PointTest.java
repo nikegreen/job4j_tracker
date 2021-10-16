@@ -26,4 +26,12 @@ public class PointTest {
         Point p2 = new Point(2,2);
         assertEquals(2, p1.distance(p2), 0.0000001);
     }
+
+    @Test
+    public void distance3d() {
+        Point p1 = new Point(0,2, 0);
+        Point p2 = new Point(0,2, 2);
+        assertEquals(2, p1.distance3d(p2), 0.0000001);
+    }
+
 }
