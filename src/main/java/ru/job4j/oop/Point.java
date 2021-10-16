@@ -9,19 +9,9 @@ public class Point {
 
     private int y;
 
-    private Point() {
-        this.x = 0;
-        this.y = 0;
-    }
-
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    public Point(Point init) {
-        this.x = init.x;
-        this.y = init.y;
     }
 
     public double distance(Point another) {
