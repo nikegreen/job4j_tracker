@@ -12,9 +12,6 @@ public class Error {
     }
 
     public Error() {
-        this.active = false;
-        this.status = 0;
-        this.message = "";
     }
 
     public void info() {
