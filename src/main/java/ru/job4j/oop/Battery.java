@@ -4,7 +4,6 @@ public class Battery {
     private int load;
 
     public Battery() {
-        load = 0;
     }
 
     public Battery(int power) {
