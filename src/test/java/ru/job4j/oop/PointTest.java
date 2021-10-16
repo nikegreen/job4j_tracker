@@ -33,5 +33,4 @@ public class PointTest {
         Point p2 = new Point(0, 2, 2);
         assertEquals(2, p1.distance3d(p2), 0.001);
     }
-
 }
