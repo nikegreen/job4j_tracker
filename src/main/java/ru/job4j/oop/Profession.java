@@ -6,25 +6,6 @@ public class Profession {
     private String education;
     private String birthday;
 
-    public Profession() {
-
-    }
-
-    public Profession(String name) {
-        this.name = name;
-    }
-
-    public Profession(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
-
-    public Profession(String name, String surname, String education) {
-        this.name = name;
-        this.surname = surname;
-        this.education = education;
-    }
-
     public Profession(String name, String surname, String education, String birthday) {
         this.name = name;
         this.surname = surname;
