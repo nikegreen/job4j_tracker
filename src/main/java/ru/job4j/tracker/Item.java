@@ -7,15 +7,15 @@ public class Item {
     private String name;
     private LocalDateTime created = LocalDateTime.now();
 
-    Item() {
+    public Item() {
 
     }
 
-    Item(String name) {
+    public Item(String name) {
         this.name  = name;
     }
 
-    Item(String name, int id) {
+    public Item(String name, int id) {
         this.name  = name;
         this.id = id;
     }
