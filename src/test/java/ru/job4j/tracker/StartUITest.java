@@ -30,4 +30,19 @@ public class StartUITest {
         assertThat(created[0].getName(), is(expected[0].getName()));
         assertThat(created[1].getName(), is(expected[1].getName()));
     }
+
+    @Test
+    public void whenReplaceItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("new item");
+        tracker.add(item);
+        String[] answers = {
+                String.valueOf(item.getId()),
+                "replaced item"
+        };
+        Input input = new StubInput(answers);
+        StartUI.editItem(input, tracker);
+        Item replaced = tracker.findById(item.getId());
+        assertThat(replaced.getName(), is("replaced item"));
+    }
 }
