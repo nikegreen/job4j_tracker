@@ -12,7 +12,12 @@ public class TriangleTest {
         Point p2 = new Point(0, 2);
         Point p3 = new Point(2, 0);
         Triangle t = new Triangle(p1, p2, p3);
-        assertEquals(3.41421, t.semiPerimeter(p1.distance(p2), p1.distance(p3), p2.distance(p3)), 0.001);
+        assertEquals(3.41421,
+                t.semiPerimeter(
+                        p1.distance(p2),
+                        p1.distance(p3),
+                        p2.distance(p3)),
+                0.001);
     }
 
     @Test
