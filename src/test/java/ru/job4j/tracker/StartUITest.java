@@ -145,7 +145,6 @@ public class StartUITest {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item one = tracker.add(new Item("test1"));
-        String replaceName = "New Test Name";
         Input in = new StubInput(
                 new String[] {"0", "1"}
         );
