@@ -2,10 +2,26 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс модель банковского счета
+ * @author Nike Zelensky
+ * @version 1.0
+ */
 public class Account {
+    /**
+     * реквизиты
+     */
     private String requisite;
+    /**
+     * баланс
+     */
     private double balance;
 
+    /**
+     * Создание банковского счёта с заданными параметрами.
+     * @param requisite - реквизиты счёта
+     * @param balance - исходный баланс
+     */
     public Account(String requisite, double balance) {
         this.requisite = requisite;
         this.balance = balance;
