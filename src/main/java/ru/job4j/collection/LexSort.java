@@ -9,32 +9,26 @@ public class LexSort implements Comparator<String> {
     public int compare(String left, String right) {
         String[] l = left.split("\\.");
         String[] r = right.split("\\.");
-        List<Integer> li = new ArrayList<>();
-        List<Integer> ri = new ArrayList<>();
-        for (String str : l) {
+        int lc = 0;
+        int rc = 0;
+        while (lc < l.length && rc < r.length) {
+            int li, ri;
             try {
-                int res = Integer.parseInt(str);
-                li.add(res);
+                li = Integer.parseInt(l[lc]);
+                lc++;
             } catch (NumberFormatException e) {
                 break;
             }
-        }
-        for (String str : r) {
             try {
-                int res = Integer.parseInt(str);
-                ri.add(res);
+                ri = Integer.parseInt(r[rc]);
+                rc++;
             } catch (NumberFormatException e) {
                 break;
             }
-        }
-        int min = Math.min(ri.size(), li.size());
-        for (int i = 0; i < min; i++) {
-            int res = Integer.compare(li.get(i), ri.get(i));
-            if (res == 0) {
-                continue;
+            if (li != ri) {
+                return Integer.compare(li, ri);
             }
-            return res;
         }
-        return li.size() - ri.size();
+        return Integer.compare(lc, rc);
     }
 }
