@@ -21,7 +21,6 @@ public class Tracker {
 
     public List<Item> findByName(String name) {
         List<Item> rsl = new ArrayList<Item>();
-        int count = 0;
         for (Item item : items) {
             if (item.getName().equals(name)) {
                 rsl.add(item);
