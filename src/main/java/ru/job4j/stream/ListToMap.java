@@ -10,7 +10,11 @@ public class ListToMap {
         return students.stream()
                 .distinct()
                 .collect(
-                        Collectors.toMap(s -> s.getSurname(), s -> s)
+                        Collectors.toMap(
+                                n -> n.getSurname(),
+                                s -> s,
+                                (student1, student2) -> student1
+                        )
                 );
     }
 
