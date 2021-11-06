@@ -28,17 +28,8 @@ public class ListCalcFunctionDiapasonTest {
     @Test
     public void whenExponFunctionThenExponResults() {
         ListCalcFunctionDiapason function = new ListCalcFunctionDiapason();
-        List<Double> result = function.diapason(2, 5,
-                x -> {
-                    double res = 1D;
-                    int i = 0;
-                    while (i < x) {
-                        res = res * 3;
-                        i++;
-                    }
-                    return res;
-                });
-        List<Double> expected = Arrays.asList(9D, 27D, 81D);
+        List<Double> result = function.diapason(2, 5, x -> Math.pow(2, x));
+        List<Double> expected = Arrays.asList(4D, 8D, 16D);
         assertThat(result, is(expected));
     }
 }
