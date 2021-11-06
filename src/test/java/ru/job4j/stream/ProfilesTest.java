@@ -13,11 +13,12 @@ public class ProfilesTest {
     @Test
     public void testAddress() {
         List<Address> addresses = Arrays.asList(
-                new Address("Moscow", "Lenin", 2, 11),
                 new Address("Kirov", "Lenin", 5, 8),
+                new Address("Moscow", "Lenin", 2, 11),
                 new Address("Omsk", "Sadovaja", 1, 1)
                 );
         List<Profile> profiles = Arrays.asList(
+                new Profile(new Address("Moscow", "Lenin", 2, 11)),
                 new Profile(new Address("Moscow", "Lenin", 2, 11)),
                 new Profile(new Address("Kirov", "Lenin", 5, 8)),
                 new Profile(new Address("Omsk", "Sadovaja", 1, 1))
