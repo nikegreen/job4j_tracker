@@ -12,7 +12,10 @@ public class College {
     }
 
     public Optional<Student> findByAccount(String account) {
-        return students.keySet().stream().filter(s -> account.equals(s.getAccount())).findFirst();
+        return students.keySet()
+                .stream()
+                .filter(s -> account.equals(s.getAccount()))
+                .findFirst();
     }
 
     public Optional<Subject> findBySubjectName(String account, String name) {
