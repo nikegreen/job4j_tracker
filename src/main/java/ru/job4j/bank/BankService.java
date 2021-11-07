@@ -45,14 +45,6 @@ public class BankService {
                 .filter((str) -> passport.equals(str.getPassport()))
                 .findFirst()
                 .orElse(null);
-        /** замена цикла
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                return user;
-            }
-        }
-        return null;
-        */
     }
 
     /**
@@ -71,13 +63,6 @@ public class BankService {
                     .filter(a -> a.getRequisite().equals(requisite))
                     .findFirst()
                     .orElse(null);
-            /** замена цикла
-            for (Account account : users.get(user)) {
-                if (account.getRequisite().equals(requisite)) {
-                    return account;
-                }
-            }
-            */
     }
 
     /**
