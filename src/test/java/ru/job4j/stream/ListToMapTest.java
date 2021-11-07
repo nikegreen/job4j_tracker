@@ -28,7 +28,7 @@ public class ListToMapTest {
         expected.put(students.get(3).getSurname(), students.get(3));
         expected.put(students.get(4).getSurname(), students.get(4));
         Map<String, Student> rsl = new ListToMap().collect(students);
-        assertThat(rsl, is(expected));
+        assertEquals(rsl, expected);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ListToMapTest {
         expected.put(students.get(4).getSurname(), students.get(4));
         expected.put(students.get(5).getSurname(), students.get(5));
         Map<String, Student> rsl = new ListToMap().collect(students);
-        assertThat(rsl, is(expected));
+        assertEquals(rsl, expected);
     }
 
     @Test
@@ -68,6 +68,6 @@ public class ListToMapTest {
         expected.put(students.get(4).getSurname(), students.get(4));
         expected.put(students.get(5).getSurname(), students.get(5));
         Map<String, Student> rsl = new ListToMap().collect(students);
-        assertThat(rsl, is(expected));
+        assertEquals(rsl, expected);
     }
 }
