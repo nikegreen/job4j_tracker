@@ -15,7 +15,7 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     private void resize() {
-        container = Arrays.copyOf(container, container.length * 2);
+        container = Arrays.copyOf(container, container.length == 0 ? 16 : container.length * 2);
     }
 
     @Override
