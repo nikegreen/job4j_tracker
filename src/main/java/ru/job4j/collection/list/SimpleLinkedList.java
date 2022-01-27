@@ -8,12 +8,10 @@ public class SimpleLinkedList<E> implements List<E> {
     private int size;
 
     class Node {
-        private Node prev;
         private Node next;
-        private E value;
+        private final E value;
 
-        public Node(Node thePrev, E theValue, Node theNext) {
-            prev = thePrev;
+        public Node(E theValue, Node theNext) {
             value = theValue;
             next = theNext;
         }
@@ -37,7 +35,7 @@ public class SimpleLinkedList<E> implements List<E> {
 
     @Override
     public void add(E value) {
-        Node v = new Node(last, value, null);
+        Node v = new Node(value, null);
         if (first == null) {
             first = v;
         } else {
