@@ -49,13 +49,10 @@ public class SimpleLinkedList<E> implements List<E> {
     public E get(int index) {
         Objects.checkIndex(index, size);
         Node node = first;
-        E value = null;
-        while (node != null && index >= 0) {
-            value = node.getValue();
+        for (int i = 0; i < index; i++) {
             node = node.getNext();
-            index--;
         }
-        return value;
+        return node.getValue();
     }
 
     @Override
