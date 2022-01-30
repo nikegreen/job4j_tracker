@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SimpleSetTest {
-
     @Test
     public void whenAddNonNull() {
         Set<Integer> set = new SimpleSet<>();
