@@ -54,7 +54,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(getName(), getChildren(), getBirthday());
     }
 }
 
