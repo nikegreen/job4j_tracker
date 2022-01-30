@@ -39,6 +39,11 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(getName(), getChildren(), getBirthday());
     }
