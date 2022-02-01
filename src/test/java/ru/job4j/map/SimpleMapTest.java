@@ -22,14 +22,14 @@ public class SimpleMapTest {
     public void putReturnTrue2() {
         SimpleMap<Integer, Integer> map = new SimpleMap<>();
         assertTrue(map.put(1, 1));
-        assertTrue(map.put(1, 1));
+        assertFalse(map.put(1, 1));
     }
 
     @Test
     public void putReturnTrue3() {
         SimpleMap<Integer, Integer> map = new SimpleMap<>();
         assertTrue(map.put(1, 1));
-        assertTrue(map.put(1, 2));
+        assertTrue(map.put(2, 2));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class SimpleMapTest {
         assertTrue(map.put(1, 1));
         Iterator<Integer> it = map.iterator();
         assertTrue(it.hasNext());
-        assertTrue(map.put(1, 1));
+        assertTrue(map.remove(1));
         it.hasNext();
     }
 

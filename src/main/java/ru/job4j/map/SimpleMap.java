@@ -1,8 +1,6 @@
 package ru.job4j.map;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SimpleMap<K, V> implements Map<K, V> {
     private static final float LOAD_FACTOR = 0.75f;
@@ -17,20 +15,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count / capacity > LOAD_FACTOR) {
+        if (1f * count > LOAD_FACTOR * capacity) {
             expand();
         }
         int index = indexFor(hash(key.hashCode()));
-        MapEntry<K, V> entry = table[index];
-        boolean empty = entry == null;
+        boolean empty = table[index] == null;
         if (empty) {
             table[index] = new MapEntry<>(key, value);
             count++;
             modCount++;
-        } else if (entry.key.equals(key)) {
-            table[index] = new MapEntry<>(key, value);
-            modCount++;
-            empty = true;
         }
         return empty;
     }
@@ -57,7 +50,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         MapEntry<K, V> entry = table[indexFor(hash(key.hashCode()))];
-        return entry == null ? null : entry.key.equals(key) ? entry.value : null;
+        return entry != null &&  entry.key.equals(key) ? entry.value : null;
     }
 
     @Override
@@ -86,23 +79,25 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (mod != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                boolean res = false;
-                for (int i = index + 1; (i < capacity) && !res; i++) {
-                    res = table[i] != null;
+                int i = index + 1;
+                while ((i < capacity) && table[i] == null) {
+                    i++;
                 }
-                return res;
+                return i < capacity;
             }
 
             @Override
             public K next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
+                if (mod != modCount) {
+                    throw new ConcurrentModificationException();
                 }
                 MapEntry<K, V> res = null;
                 int i = index + 1;
-                for (; (i < capacity) && res == null; i++) {
-                    res = table[i];
-
+                while ((i < capacity) && ((res = table[i]) == null)) {
+                    i++;
+                }
+                if (res == null) {
+                    throw new NoSuchElementException();
                 }
                 index = i;
                 return res.key;
