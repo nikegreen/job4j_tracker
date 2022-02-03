@@ -13,7 +13,17 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name"), is("nikegreen"));
-        assertNull(config.value("surname"));
+        assertThat(config.value("surname"), is(""));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenPairWithoutCommentValueNull() {
+        String path = "./data/pair_without_comment.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("name"), is("nikegreen"));
+        assertThat(config.value("surname"), is(""));
+        assertThat(config.value("illegalKey"), is(""));
     }
 
     @Test
@@ -22,7 +32,7 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name"), is("nikegreen"));
-        assertNull(config.value("surname"));
+        assertThat(config.value("surname"), is(""));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -31,6 +41,6 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name"), is("nikegreen"));
-        assertNull(config.value("surname"));
+        assertThat(config.value("surname"), is(""));
     }
 }
