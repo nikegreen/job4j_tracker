@@ -17,7 +17,8 @@ public class Config {
         this.path = path;
     }
 
-    private void validateAdd(String val) {
+    private String[] validate(String val) {
+        String[] result = null;
         val = val.trim();
         if (val.length() > 0) {
             if (!val.startsWith("#")) {
@@ -33,15 +34,21 @@ public class Config {
                 if (param.indexOf('=') > -1) {
                     throw new IllegalArgumentException("Повторяется \"=\"");
                 }
-                values.put(key, param.length() > 0 ? param : "");
+                result = new String[]{key, param};
             }
         }
+        return result;
     }
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             values.clear();
-            read.lines().forEach(this::validateAdd);
+            read.lines().forEach(val -> {
+                String[] res = validate(val);
+                if (res != null) {
+                    values.put(res[0], res[1]);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
