@@ -25,7 +25,7 @@ public class Config {
                 int index = val.indexOf('=');
                 if (index == -1) {
                     throw new IllegalArgumentException("Отсутствует \"=\"");
-                } else
+                }
                 if (index == 0) {
                     throw new IllegalArgumentException("Отсутствует ключ");
                 }
