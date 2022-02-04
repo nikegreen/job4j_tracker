@@ -1,11 +1,15 @@
 package ru.job4j.io;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class ConfigTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void whenPairWithoutComment() {
@@ -35,12 +39,30 @@ public class ConfigTest {
         assertThat(config.value("surname"), is(""));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenPairWithIllegalArgumentException() {
-        String path = "./data/pair_with_illegal_argument.properties";
+    @Test
+    public void whenPairWithNoKey() {
+        String path = "./data/pair_with_illegal_no_key.properties";
         Config config = new Config(path);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Отсутствует ключ");
         config.load();
-        assertThat(config.value("name"), is("nikegreen"));
-        assertThat(config.value("surname"), is(""));
+    }
+
+    @Test
+    public void whenPairWithDoubleEqual() {
+        String path = "./data/pair_with_illegal_double_equal.properties";
+        Config config = new Config(path);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Повторяется \"=\"");
+        config.load();
+    }
+
+    @Test
+    public void whenPairWithThereIsNoEqual() {
+        String path = "./data/pair_with_illegal_there_is_no_equal.properties";
+        Config config = new Config(path);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Отсутствует \"=\"");
+        config.load();
     }
 }

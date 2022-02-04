@@ -20,13 +20,19 @@ public class Config {
     private void validateAdd(String val) {
         val = val.trim();
         if (val.length() > 0) {
-            if (val.charAt(0) != '#') {
+            if (!val.startsWith("#")) {
                 int index = val.indexOf('=');
-                if (index < 1) {
-                    throw new IllegalArgumentException();
+                if (index == -1) {
+                    throw new IllegalArgumentException("Отсутствует \"=\"");
+                } else
+                if (index == 0) {
+                    throw new IllegalArgumentException("Отсутствует ключ");
                 }
                 String key = val.substring(0, index);
                 String param = val.substring(index + 1);
+                if (param.indexOf('=') > -1) {
+                    throw new IllegalArgumentException("Повторяется \"=\"");
+                }
                 values.put(key, param.length() > 0 ? param : "");
             }
         }
