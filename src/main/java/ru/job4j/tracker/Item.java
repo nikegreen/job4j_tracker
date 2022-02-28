@@ -1,14 +1,15 @@
 package ru.job4j.tracker;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Item implements Comparable<Item> {
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+
+    private static final SimpleDateFormat DATEFORMAT = new SimpleDateFormat(
+            "dd-MMMM-EEEE-yyyy HH:mm:ss");
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
+    private Timestamp created = new Timestamp(System.currentTimeMillis());
 
     public Item() {
     }
@@ -20,6 +21,12 @@ public class Item implements Comparable<Item> {
     public Item(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Item(int id, String name, Timestamp dateTime) {
+        this.id = id;
+        this.name = name;
+        this.created = dateTime;
     }
 
     public int getId() {
@@ -38,7 +45,7 @@ public class Item implements Comparable<Item> {
         this.name = name;
     }
 
-    public LocalDateTime getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
@@ -47,7 +54,7 @@ public class Item implements Comparable<Item> {
         return "Item{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", created=" + created.format(FORMATTER)
+                + ", created=" + DATEFORMAT.format(created)
                 + "}";
     }
 
