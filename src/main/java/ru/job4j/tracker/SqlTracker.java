@@ -46,7 +46,6 @@ public class SqlTracker implements Store {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, item.getCreated());
             int count = statement.executeUpdate();
-            //statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     resItem = new Item(generatedKeys.getInt(1), item.getName(), item.getCreated());
