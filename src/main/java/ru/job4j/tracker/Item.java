@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class Item implements Comparable<Item> {
 
@@ -62,5 +63,24 @@ public class Item implements Comparable<Item> {
     public int compareTo(Item another) {
         int res = name.compareTo(another.name);
         return res == 0 ? created.compareTo(another.created) : res;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Item)) {
+            return false;
+        }
+        Item item = (Item) o;
+        return getId() == item.getId()
+                && getName().equals(item.getName())
+                && getCreated().equals(item.getCreated());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCreated());
     }
 }
