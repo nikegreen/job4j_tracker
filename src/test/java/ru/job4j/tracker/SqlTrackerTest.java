@@ -56,55 +56,95 @@ public class SqlTrackerTest {
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        item = tracker.add(item);
-        assertThat(tracker.findById(item.getId()), is(item));
+        Item item1 = tracker.add(new Item("item1"));
+        assertThat(tracker.findById(item1.getId()), is(item1));
+    }
+
+    @Test
+    public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        tracker.delete(item2.getId());
+        assertNull(tracker.findById(item2.getId()));
     }
 
     @Test
     public void whenSaveItemAndFindAll() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        item = tracker.add(item);
-        List<Item> items = new ArrayList<>();
-        items.add(item);
+        Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId()), is(item));
-        List<Item> itemsRes = tracker.findAll();
-        assertEquals(itemsRes.get(0), items.get(0));
+        assertEquals(tracker.findAll(), List.of(item));
+    }
+
+    @Test
+    public void whenSaveItemAndFindAll2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item1"));
+        assertThat(tracker.findById(item1.getId()), is(item1));
+        Item item2 = tracker.add(new Item("item2"));
+        assertThat(tracker.findById(item2.getId()), is(item2));
+        assertEquals(tracker.findAll(), List.of(item1, item2));
+    }
+
+    @Test
+    public void whenSaveItemAndFindAll3() {
+        SqlTracker tracker = new SqlTracker(connection);
+        assertEquals(tracker.findAll(), new ArrayList<Item>());
     }
 
     @Test
     public void whenSaveItemAndFindByName() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        item = tracker.add(item);
-        List<Item> items = new ArrayList<>();
-        items.add(item);
-        List<Item> itemsRes = tracker.findByName(item.getName());
-        assertEquals(itemsRes.get(0), items.get(0));
+        Item item = tracker.add(new Item("item"));
+        assertEquals(tracker.findByName(item.getName()), List.of(item));
+    }
+
+    @Test
+    public void whenSaveItemAndFindByName2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item"));
+        Item item2 = tracker.add(new Item("item"));
+        tracker.add(new Item("item3"));
+        assertEquals(tracker.findByName(item1.getName()), List.of(item1, item2));
     }
 
     @Test
     public void whenSaveItemAndDelete() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        item = tracker.add(item);
-        boolean res = tracker.delete(item.getId());
-        assertTrue(res);
-        List<Item> itemsRes = tracker.findByName(item.getName());
-        assertEquals(itemsRes.size(), 0);
+        Item item = tracker.add(new Item("item"));
+        assertTrue(tracker.delete(item.getId()));
+        assertEquals(tracker.findByName(item.getName()).size(), 0);
+    }
+
+    @Test
+    public void whenSaveItemAndDelete2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = tracker.add(new Item("item"));
+        assertTrue(tracker.delete(item.getId()));
+        assertEquals(tracker.findByName(item.getName()).size(), 0);
+        assertFalse(tracker.delete(item.getId()));
+    }
+
+    @Test
+    public void whenSaveItemAndDelete3() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        assertTrue(tracker.delete(item1.getId()));
+        assertEquals(tracker.findByName(item1.getName()).size(), 0);
+        assertFalse(tracker.delete(item1.getId()));
+        assertTrue(tracker.delete(item2.getId()));
+        assertEquals(tracker.findByName(item2.getName()).size(), 0);
     }
 
     @Test
     public void whenSaveItemAndReplace() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
         Item newItem = new Item("newItem");
-        item = tracker.add(item);
-        boolean res = tracker.replace(item.getId(), newItem);
-        assertTrue(res);
+        Item item = tracker.add(new Item("item"));
+        assertTrue(tracker.replace(item.getId(), newItem));
         newItem.setId(item.getId());
-        Item itemRes = tracker.findById(item.getId());
-        assertEquals(itemRes, newItem);
+        assertEquals(tracker.findById(item.getId()), newItem);
     }
 }
