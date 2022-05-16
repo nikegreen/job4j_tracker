@@ -9,7 +9,7 @@ create table father(
 create table children(
     id serial primary key,
     name varchar(60),
-    father_id int references father(id) unique
+    father_id int references father(id)
 );
 
 insert into father(name) values ('Ivan');
