@@ -15,10 +15,10 @@ create table children(
 insert into father(name) values ('Ivan');
 insert into father(name) values ('Serg');
 
-insert into children(name) values ('Petr', 1);
-insert into children(name) values ('Stas', 1);
-insert into children(name) values ('Oleg', 2);
-insert into children(name) values ('Misha', 2);
+insert into children(name, father_id) values ('Petr', 1);
+insert into children(name, father_id) values ('Stas', 1);
+insert into children(name, father_id) values ('Oleg', 2);
+insert into children(name, father_id) values ('Misha', 2);
 
 select * from father;
 
