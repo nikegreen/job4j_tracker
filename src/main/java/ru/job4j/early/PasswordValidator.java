@@ -11,19 +11,29 @@ public class PasswordValidator {
         if (password.length() > 32 || password.length() < 8) {
             throw new IllegalArgumentException("Password should be length [8, 32]");
         }
-        if (!findUpperCase(password)) {
+        boolean digit = false;
+        boolean upperCase = false;
+        boolean lowCase = false;
+        boolean special = false;
+        for (char ch:password.toCharArray()) {
+            upperCase |= isUpperCase(ch);
+            lowCase |= isLowerCase(ch);
+            digit |= isDigit(ch);
+            special |= !isDigit(ch) && !isAlphabetic(ch);
+        }
+        if (!upperCase) {
             throw new IllegalArgumentException(
                     "Password should contain at least one uppercase letter");
         }
-        if (!findLowCase(password)) {
+        if (!lowCase) {
             throw new IllegalArgumentException(
                     "Password should contain at least one lowercase letter");
         }
-        if (!findDigit(password)) {
+        if (!digit) {
             throw new IllegalArgumentException(
                     "Password should contain at least one figure");
         }
-        if (!findSpecial(password)) {
+        if (!special) {
             throw new IllegalArgumentException(
                     "Password should contain at least one special symbol");
         }
@@ -39,42 +49,6 @@ public class PasswordValidator {
         password = password.toLowerCase();
         for (String str : subStrings) {
             if (password.contains(str)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean findSpecial(String password) {
-        for (char ch:password.toCharArray()) {
-            if (!isDigit(ch) && !isAlphabetic(ch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean findDigit(String password) {
-        for (char ch:password.toCharArray()) {
-            if (isDigit(ch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean findLowCase(String password) {
-        for (char ch:password.toCharArray()) {
-            if (isLowerCase(ch)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean findUpperCase(String password) {
-        for (char ch:password.toCharArray()) {
-            if (isUpperCase(ch)) {
                 return true;
             }
         }
