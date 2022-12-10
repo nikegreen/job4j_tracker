@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Card {
+
     private final Suit suit;
     private final Value value;
 
