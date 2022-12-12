@@ -176,6 +176,7 @@ $$
     end;
 $$;
 
+select f_insert_data('product_4', 'producer_4', 8, 0);
+select f_insert_data('product_5', 'producer_5', 8, 0);
 
-
-
+select f_delete_zero_data();
