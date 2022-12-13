@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ru.job4j.tracker.Item;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -26,7 +25,7 @@ public class SqlTrackerTest {
     @BeforeClass
     public static void initConnection() {
         try (InputStream in = SqlTrackerTest.class.getClassLoader().getResourceAsStream(
-                "test.properties")) {
+                "test.properties.rename")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
