@@ -1,0 +1,1 @@
+alter TABLE items drop COLUMN checked;
