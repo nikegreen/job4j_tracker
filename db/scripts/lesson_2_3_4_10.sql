@@ -23,3 +23,22 @@ VALUES ('Гарри Поттер и узник Азкабана', 'Джоан Р
        ('1984', 'Джордж Оруэлл'),
        ('Марсианин', 'Энди Уир'),
        ('Божественная комедия', 'Данте Алигьери');
+
+-- 1
+select name from movie
+intersect
+select title from book;
+
+-- 2
+select title from book
+except
+select name from movie;
+
+--3
+(select name from movie
+except
+select title from book)
+union all
+(select title from book
+except
+select name from movie);
