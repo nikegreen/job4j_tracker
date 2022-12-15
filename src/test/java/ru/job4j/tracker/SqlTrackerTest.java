@@ -209,4 +209,94 @@ public class SqlTrackerTest {
         item = tracker.add(item);
         assertThat(tracker.findById(item.getId())).isEqualTo(item);
     }
+
+    @Test
+    public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        tracker.delete(item2.getId());
+        assertThat(tracker.findById(item2.getId())).isEqualTo(null);
+    }
+
+    @Test
+    public void whenSaveItemAndFindAll() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = tracker.add(new Item("item"));
+        assertThat(tracker.findById(item.getId())).isEqualTo(item);
+        assertThat(tracker.findAll()).isEqualTo(List.of(item));
+    }
+
+    @Test
+    public void whenSaveItemAndFindAll2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item1"));
+        assertThat(tracker.findById(item1.getId())).isEqualTo(item1);
+        Item item2 = tracker.add(new Item("item2"));
+        assertThat(tracker.findById(item2.getId())).isEqualTo(item2);
+        assertThat(tracker.findAll()).isEqualTo(List.of(item1, item2));
+    }
+
+    @Test
+    public void whenSaveItemAndFindAll3() {
+        SqlTracker tracker = new SqlTracker(connection);
+        assertThat(tracker.findAll()).isEqualTo(new ArrayList<Item>());
+    }
+
+    @Test
+    public void whenSaveItemAndFindByName() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = tracker.add(new Item("item"));
+        assertThat(tracker.findByName(item.getName())).isEqualTo(List.of(item));
+    }
+
+    @Test
+    public void whenSaveItemAndFindByName2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item"));
+        Item item2 = tracker.add(new Item("item"));
+        tracker.add(new Item("item3"));
+        assertThat(tracker.findByName(item1.getName())).isEqualTo(List.of(item1, item2));
+    }
+
+    @Test
+    public void whenSaveItemAndDelete() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = tracker.add(new Item("item"));
+        assertThat(tracker.delete(item.getId())).isEqualTo(true);
+        assertThat(tracker.findByName(item.getName()).size()).isEqualTo(0);
+    }
+
+    @Test
+    public void whenSaveItemAndDelete2() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = tracker.add(new Item("item"));
+        assertThat(tracker.delete(item.getId())).isEqualTo(true);
+        assertThat(tracker.findByName(item.getName()).size()).isEqualTo(0);
+        assertThat(tracker.delete(item.getId())).isEqualTo(false);
+    }
+
+    @Test
+    public void whenSaveItemAndDelete3() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        assertThat(tracker.delete(item1.getId())).isEqualTo(true);
+        assertThat(tracker.findByName(item1.getName()).size()).isEqualTo(0);
+        assertThat(tracker.delete(item1.getId())).isEqualTo(false);
+        assertThat(tracker.delete(item2.getId())).isEqualTo(true);
+        assertThat(tracker.findByName(item2.getName()).size()).isEqualTo(0);
+        assertThat(tracker.delete(item2.getId())).isEqualTo(false);
+    }
+
+    @Test
+    public void whenSaveItemAndReplace() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item newItem = new Item("newItem");
+        Item item = tracker.add(new Item("item"));
+        assertThat(tracker.replace(item.getId(), newItem)).isEqualTo(true);
+        newItem.setId(item.getId());
+        assertThat(tracker.findById(item.getId())).isEqualTo(newItem);
+    }
+
 }
