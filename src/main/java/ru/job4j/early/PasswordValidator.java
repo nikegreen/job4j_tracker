@@ -28,6 +28,9 @@ public class PasswordValidator {
             if (!isDigit(ch) && !isAlphabetic(ch)) {
                 special = false;
             }
+            if (!(upperCase || lowCase || digit || special)) {
+                break;
+            }
         }
         if (upperCase) {
             throw new IllegalArgumentException(
