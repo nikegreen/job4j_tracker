@@ -22,7 +22,7 @@ class FindByNameActionTest {
         action.execute(input, tracker);
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
-                "=== Find items by name ====" + ln + item.toString() + ln);
+                "=== Find items by name ====" + ln + item + ln);
     }
 
     @Test
@@ -59,7 +59,7 @@ class FindByNameActionTest {
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
                 "=== Find items by name ====" + ln
-                        + item1.toString() + ln
-                        + item2.toString() + ln);
+                        + item1 + ln
+                        + item2 + ln);
     }
 }
