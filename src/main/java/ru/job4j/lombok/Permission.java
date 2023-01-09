@@ -2,15 +2,15 @@ package ru.job4j.lombok;
 
 import lombok.*;
 
+import java.util.List;
+
+@Builder
 @ToString
+@Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@RequiredArgsConstructor
-public class Category {
-    @NonNull
-    @Getter
+public class Permission {
     @EqualsAndHashCode.Include
     private int id;
-    @Getter
-    @Setter
     private String name;
+    private List<String> rules;
 }
