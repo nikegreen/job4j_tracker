@@ -52,7 +52,12 @@ public class SqlTracker implements Store {
             int count = statement.executeUpdate();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    resItem = new Item(generatedKeys.getInt(1), item.getName(), item.getCreated());
+                    resItem = new Item(
+                            generatedKeys.getInt(1),
+                            item.getName(),
+                            item.getCreated(),
+                            item.getParticipates()
+                    );
                 }
             }
         } catch (SQLException e) {
@@ -143,7 +148,8 @@ public class SqlTracker implements Store {
             item = new Item(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
-                    resultSet.getTimestamp("created").toLocalDateTime()
+                    resultSet.getTimestamp("created").toLocalDateTime(),
+                    List.of()
             );
         }
         return item;

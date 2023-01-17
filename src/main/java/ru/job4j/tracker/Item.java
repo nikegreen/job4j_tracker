@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import javax.persistence.*;
 
 import lombok.*;
+import ru.job4j.toone.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -22,4 +24,12 @@ public class Item {
     @NonNull
     private String name;
     private LocalDateTime created = LocalDateTime.now();
+
+    @ManyToMany
+    @JoinTable(
+            name = "participates",
+            joinColumns = { @JoinColumn(name = "item_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private List<User> participates;
 }
