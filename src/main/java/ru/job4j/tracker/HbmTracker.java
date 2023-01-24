@@ -33,17 +33,13 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public boolean replace(int id, Item item) {
         boolean res = false;
+        Item item1 = new Item(id, item.getName(), item.getCreated(), item.getParticipates());
         try (Session session = sf.openSession()) {
             try {
                 session.beginTransaction();
-                session.createQuery(
-                        "UPDATE Item SET name = :fName created = :fCreated WHERE id = :fId",
-                                Item.class)
-                        .setParameter("fName", item.getName())
-                        .setParameter("fCreated", item.getCreated())
-                        .setParameter("fId", id)
-                        .executeUpdate();
+                session.update(item1);
                 session.getTransaction().commit();
+                item = item1;
                 res = true;
             } catch (Exception e) {
                 session.getTransaction().rollback();
@@ -77,9 +73,12 @@ public class HbmTracker implements Store, AutoCloseable {
         try (Session session = sf.openSession()) {
             try {
                 session.beginTransaction();
-                Query<Item> query = session.createQuery("from Item", Item.class);
+                Query<Item> query = session.createQuery(
+                        "from Item i left join fetch i.participates",
+                        Item.class
+                );
                 session.getTransaction().commit();
-                result.addAll(query.list());
+                result = query.list();
             } catch (Exception e) {
                 session.getTransaction().rollback();
             }
